@@ -1,0 +1,267 @@
+def diagonal_sum(matrix):
+    total = 0
+    for i in range(len(matrix)):
+        total += matrix[i][i]
+    return total
+
+def matrix_multiply(m1, m2, n):
+    result = []
+    for i in range(n):
+        row = []
+        for j in range(n):
+            total = 0
+            for k in range(n):
+                total += m1[i][k] * m2[k][j]
+            row.append(total)
+        result.append(row)
+    return result
+
+def num_distinct_chars_per_column(matrix):
+    num_cols = len(matrix[0])
+    result = []
+    for col in range(num_cols):
+        chars_in_col = set()
+        for row in range(len(matrix)):
+            chars_in_col.update(matrix[row][col])
+        result.append(len(chars_in_col))
+    return result
+
+def average_gpa_by_age(db, age):
+    gpas = [record[3] for record in db if record[2] == age]
+    avg_gpa = sum(gpas) / len(gpas)
+    return round(avg_gpa, 1)
+
+import math
+
+class Circle:
+    def __init__(self, radius, color):
+        self.radius = radius
+        self.color = color
+    def area(self):
+        return round(math.pi * self.radius ** 2, 2)
+    def perimeter(self):
+        return round(2 * math.pi * self.radius, 2)
+    def scale(self,factor):
+        self.radius *= factor
+    def get_color(self):
+        return self.color
+    def get_radius(self):
+        return self.radius
+    def __eq__(self, other):
+        if not isinstance(other, Circle):
+            return False
+        return self.radius == other.radius and self.color == other.color
+    def __str__(self):
+        return f"Circle(Color: {self.color}, Radius: {self.radius})"
+
+class Rectangle:
+    def __init__(self, color, width, height):
+        self.color = color
+        self.width = width
+        self.height = height
+    def area(self):
+        return round(self.width * self.height, 2)
+    def perimeter(self):
+        return round(self.width * 2 + self.height * 2, 2)
+    def scale(self,factor):
+        self.width *= factor
+        self.height *= factor
+    def get_color(self):
+        return self.color
+    def get_width(self):
+        return self.width
+    def get_height(self):
+        return self.height
+    def __eq__(self, other):
+        if not isinstance(other, Rectangle):
+            return False
+        return (
+                self.width == other.width and
+                self.height == other.height and
+                self.color == other.color
+        )
+    def __str__(self):
+        return f"Rectangle(Color: {self.color}, Width: {self.width}, Height: {self.height})"
+
+class Triangle:
+        def __init__(self, color, side_a, side_b, side_c):
+            self.color = color
+            self.side_a = side_a
+            self.side_b = side_b
+            self.side_c = side_c
+        def area(self):
+            s = (self.side_a + self.side_b + self.side_c)/2
+            return round(math.sqrt(s * (s - self.side_a) * (s - self.side_b) * (s - self.side_c)), 2)
+        def perimeter(self):
+            return round(self.side_a + self.side_b + self.side_c, 2)
+        def scale(self,factor):
+            self.side_a *= factor
+            self.side_b *= factor
+            self.side_c *= factor
+        def get_color(self):
+            return self.color
+        def get_side_a(self):
+            return self.side_a
+        def get_side_b(self):
+            return self.side_b
+        def get_side_c(self):
+            return self.side_c
+        def __eq__(self, other):
+            if not isinstance(other, Triangle):
+                return False
+            return (
+                self.color == other.color and
+                self.side_a == other.side_a and
+                self.side_b == other.side_b and
+                self.side_c == other.side_c
+            )
+        def __str__(self):
+            return f"Triangle(Color: {self.color}, Sides: {self.side_a}, {self.side_b}, {self.side_c})"
+
+class Shape:
+    def __init__(self, color):
+        self.color = color
+    def area(self):
+        return 0
+    def perimeter(self):
+        return 0
+    def scale(self,factor):
+        self.scale = factor
+    def get_color(self):
+        return self.color
+    def __eq__(self, other):
+        if not isinstance(other, Shape):
+            return False
+        return self.color == other.color
+    def __str__(self):
+        return f"Shape(Color: {self.color})"
+
+import math
+
+#
+# SHAPE CLASS
+#
+class Shape:
+    def __init__(self, color):
+        self.color = color
+
+    def get_color(self):
+        return self.color
+
+    def area(self):
+        # To be overridden
+        raise NotImplementedError
+
+    def perimeter(self):
+        # To be overridden
+        raise NotImplementedError
+
+    def scale(self, factor):
+        # To be overridden
+        raise NotImplementedError
+
+    def __eq__(self, other):
+        # Overridden in subclasses
+        if type(self) != type(other):
+            return False
+        return self.color == other.color
+
+    def __str__(self):
+        return f"Shape(Color: {self.color})"
+
+
+#
+# RECTANGLE CLASS
+#
+class Rectangle(Shape):
+    def __init__(self, color, width, height):
+        super().__init__(color)
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return round(self.width * self.height, 2)
+
+    def perimeter(self):
+        return round(2 * (self.width + self.height), 2)
+
+    def scale(self, factor):
+        self.width *= factor
+        self.height *= factor
+
+    def __eq__(self, other):
+        if not isinstance(other, Rectangle):
+            return False
+        return (
+            self.color == other.color and
+            self.width == other.width and
+            self.height == other.height
+        )
+
+    def __str__(self):
+        return f"Rectangle(Color: {self.color}, Width: {self.width}, Height: {self.height})"
+
+
+#
+# CIRCLE CLASS
+#
+class Circle(Shape):
+    def __init__(self, color, radius):
+        super().__init__(color)
+        self.radius = radius
+
+    def area(self):
+        return round(math.pi * self.radius ** 2, 2)
+
+    def perimeter(self):
+        return round(2 * math.pi * self.radius, 2)
+
+    def scale(self, factor):
+        self.radius *= factor
+
+    def __eq__(self, other):
+        if not isinstance(other, Circle):
+            return False
+        return (
+            self.color == other.color and
+            self.radius == other.radius
+        )
+
+    def __str__(self):
+        return f"Circle(Color: {self.color}, Radius: {self.radius})"
+
+
+#
+# TRIANGLE CLASS
+#
+class Triangle(Shape):
+    def __init__(self, color, side_a, side_b, side_c):
+        super().__init__(color)
+        self.side_a = side_a
+        self.side_b = side_b
+        self.side_c = side_c
+
+    def area(self):
+        s = (self.side_a + self.side_b + self.side_c) / 2
+        return round(math.sqrt(s * (s - self.side_a) * (s - self.side_b) * (s - self.side_c)), 2)
+
+    def perimeter(self):
+        return round(self.side_a + self.side_b + self.side_c, 2)
+
+    def scale(self, factor):
+        self.side_a *= factor
+        self.side_b *= factor
+        self.side_c *= factor
+
+    def __eq__(self, other):
+        if not isinstance(other, Triangle):
+            return False
+        return (
+            self.color == other.color and
+            self.side_a == other.side_a and
+            self.side_b == other.side_b and
+            self.side_c == other.side_c
+        )
+
+    def __str__(self):
+        return f"Triangle(Color: {self.color}, Sides: {self.side_a}, {self.side_b}, {self.side_c})"
